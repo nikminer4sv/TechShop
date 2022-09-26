@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Form, FormControl, FormGroup, FormGroupName, Validators } from '@angular/forms';
+import { Route, Router } from '@angular/router';
+import { AuthService } from 'src/app/shared/auth.service';
 
 @Component({
   selector: 'app-login-page',
@@ -11,7 +13,10 @@ export class LoginPageComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   submitted: boolean = false;
 
-  constructor() { }
+  constructor(
+    private auth: AuthService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -28,10 +33,20 @@ export class LoginPageComponent implements OnInit {
 
     const user = {
       email: this.form.value.email,
-      password: this.form.value.password
+      password: this.form.value.password,
+      returnSecureToken: true
     };
 
-    console.log(user);
+    this.auth.login(user).subscribe(
+      response => {
+        this.form.reset();
+        this.router.navigate(["/admin", "dashboard"]);
+        this.submitted = false;
+      },
+      () => {
+        this.submitted = false;
+      }
+    );
   }
 
   getPasswordActualLength(): number { 
