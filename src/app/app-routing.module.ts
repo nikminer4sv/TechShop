@@ -11,9 +11,10 @@ const routes: Routes = [
     {path: "", redirectTo: "/", pathMatch: "full"},
     {path: "", component: MainPageComponent},
     {path: "product/:id", component: ProductPageComponent},
-    {path: "cart", component: CartPageComponent},
-    {path: "**", component: NotFoundComponent}
-  ]}
+    {path: "cart", component: CartPageComponent}
+  ]},
+  {path: "admin", loadChildren: () => import("./admin/admin.module").then(m => m.AdminModule)},
+  {path: "**", component: NotFoundComponent}
 ];
 
 @NgModule({
