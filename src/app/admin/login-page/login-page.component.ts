@@ -9,7 +9,7 @@ import { Form, FormControl, FormGroup, FormGroupName, Validators } from '@angula
 export class LoginPageComponent implements OnInit {
 
   form: FormGroup = new FormGroup({});
-  submited: boolean = false;
+  submitted: boolean = false;
 
   constructor() { }
 
@@ -21,7 +21,17 @@ export class LoginPageComponent implements OnInit {
   }
 
   submit(): void {
+    if (this.form.invalid)
+      return;
 
+    this.submitted = true;
+
+    const user = {
+      email: this.form.value.email,
+      password: this.form.value.password
+    };
+
+    console.log(user);
   }
 
   getPasswordActualLength(): number { 
