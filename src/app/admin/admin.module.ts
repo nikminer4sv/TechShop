@@ -9,6 +9,7 @@ import { OrdersPageComponent } from "./orders-page/orders-page.component";
 import { AdminLayoutComponent } from './shared/admin-layout/admin-layout.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AuthGuard } from "../shared/guards/auth.guard";
+import { QuillModule } from "ngx-quill";
 
 @NgModule({
     declarations:[
@@ -23,6 +24,7 @@ import { AuthGuard } from "../shared/guards/auth.guard";
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
+        QuillModule.forRoot(),
         RouterModule.forChild([
             {path: "", component: AdminLayoutComponent, children: [
                 {path: "", redirectTo: "/admin/login", pathMatch: "full"},
